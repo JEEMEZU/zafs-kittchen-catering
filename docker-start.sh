@@ -36,10 +36,6 @@ php -l connection.php || echo "❌ connection.php has syntax errors"
 php -l sendmail.php || echo "❌ sendmail.php has syntax errors"
 php -l controllerUserData.php || echo "❌ controllerUserData.php has syntax errors"
 
-# Set correct permissions
-chown -R www-data:www-data /var/www/html
-chmod -R 755 /var/www/html
-
 # ✅ ENABLE FULL ERROR DISPLAY FOR DEBUGGING
 echo "✅ Enabling FULL error logging and display..."
 cat > /usr/local/etc/php/conf.d/error-logging.ini << EOF
@@ -47,12 +43,11 @@ display_errors = On
 display_startup_errors = On
 log_errors = On
 error_reporting = E_ALL
-error_log = /proc/self/fd/2
 html_errors = On
 EOF
 
 echo "✅ Application ready"
-echo "🌐 Starting Apache on port ${PORT:-8080}"
+echo "🌐 Starting PHP built-in server on port ${PORT:-8080}"
 
-# Start Apache in foreground
-exec apache2-foreground
+# Start PHP built-in server with router script
+exec php -S 0.0.0.0:${PORT:-8080} -t /var/www/html index.php
