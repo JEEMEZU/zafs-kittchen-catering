@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "dashboard": "^0.0.1"
+    "dashboard": "^0.0.1",
+    "dockerfile": "^0.1.1"
   }
 }
