@@ -49,5 +49,5 @@ EOF
 echo "✅ Application ready"
 echo "🌐 Starting PHP built-in server on port ${PORT:-8080}"
 
-# Start PHP built-in server
-exec php -S 0.0.0.0:${PORT:-8080}
+# Start PHP built-in server with router script
+exec php -S 0.0.0.0:${PORT:-8080} -t /var/www/html index.php
