@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 FROM php:8.2-apache
+=======
+FROM php:8.2-cli
+>>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
 
 # Install dependencies
 RUN apt-get update && \
@@ -15,6 +19,7 @@ RUN apt-get update && \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+<<<<<<< HEAD
 # Verify PostgreSQL
 RUN php -m | grep -i pdo_pgsql || (echo "❌ pdo_pgsql not installed!" && exit 1)
 
@@ -80,3 +85,28 @@ EXPOSE ${PORT}
 
 # Use startup script as entrypoint
 CMD ["/usr/local/bin/docker-start.sh"]
+=======
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Set working directory
+WORKDIR /var/www/html
+
+# Copy files
+COPY composer.json composer.lock* ./
+RUN composer install --no-dev --optimize-autoloader --no-interaction || \
+    (rm -f composer.lock && composer install --no-dev --optimize-autoloader --no-interaction)
+
+COPY . .
+
+# Make startup script executable
+RUN chmod +x docker-start.sh
+
+# Set permissions
+RUN chmod -R 755 /var/www/html
+
+ENV PORT=8080
+EXPOSE 8080
+
+CMD ["./docker-start.sh"]
+>>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51

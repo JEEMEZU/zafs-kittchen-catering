@@ -1567,6 +1567,7 @@
   </footer>
 
   <script>
+<<<<<<< HEAD
     // 🔴 CRITICAL: Check for logout flag in localStorage
       (function() {
           // Check if we're in a logout state
@@ -1590,6 +1591,8 @@
           }
       })();
 
+=======
+>>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
     // Initialize scroll animations
     document.addEventListener('DOMContentLoaded', function() {
       // Scroll animation observer
@@ -1813,4 +1816,8 @@
   </script>
 
 </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
