@@ -21,6 +21,9 @@ RUN php -m | grep -i pdo_pgsql || (echo "❌ pdo_pgsql not installed!" && exit 1
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+# Disable conflicting MPM modules and enable only mpm_prefork
+RUN a2dismod mpm_event mpm_worker && a2enmod mpm_prefork
+
 # Enable Apache modules
 RUN a2enmod rewrite headers
 
