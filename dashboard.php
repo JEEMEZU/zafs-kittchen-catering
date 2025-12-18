@@ -47,8 +47,6 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['email'])) {
     exit();
 }
 
-<<<<<<< HEAD
-=======
 // ✅ SUBMIT RATING AND FEEDBACK - FIXED POSITION
 if ($_POST && isset($_POST['action']) && $_POST['action'] === 'submit_rating') {
     header('Content-Type: application/json');
@@ -129,7 +127,6 @@ if ($_POST && isset($_POST['action']) && $_POST['action'] === 'submit_rating') {
     exit;
 }
 
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                 // Handle booking submission
                 if ($_POST && isset($_POST['action']) && $_POST['action'] === 'book_event') {
                     header('Content-Type: application/json');
@@ -225,8 +222,6 @@ if ($_POST && isset($_POST['action']) && $_POST['action'] === 'submit_rating') {
                             exit;
                         }
 
-<<<<<<< HEAD
-=======
                         // âœ… SUBMIT RATING AND FEEDBACK - WORKING VERSION
 if ($_POST && isset($_POST['action']) && $_POST['action'] === 'submit_rating') {
     header('Content-Type: application/json');
@@ -307,7 +302,6 @@ if ($_POST && isset($_POST['action']) && $_POST['action'] === 'submit_rating') {
     exit;
 }
 
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
 // Ã¢Å“â€¦ Step 1: Check if 2 events already overlap at this exact time (BLOCK IMMEDIATELY)
 $overlapStmt = $conn->prepare("
     SELECT COUNT(*) as overlap_count
@@ -390,15 +384,12 @@ if ($totalEvents == 2) {
         exit;
     }
 }
-<<<<<<< HEAD
-=======
 
 
 
 
 
 
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                             
                         // Convert selected_menus to JSON format for JSONB column
                         $selected_menus_json = !empty($selected_menus) ? json_encode(explode(',', $selected_menus)) : null;
@@ -488,14 +479,10 @@ $stmt = $conn->prepare("SELECT
     rejection_reason,
     approved_at,
     created_at,
-<<<<<<< HEAD
-    updated_at
-=======
     updated_at,
     event_rating,
     event_feedback,
     completion_date
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
     FROM bookings 
     WHERE user_id = ?
     ORDER BY event_date DESC, created_at DESC
@@ -1023,22 +1010,6 @@ if (isset($_GET['action']) && $_GET['action'] === 'check_event_status') {
         $eventStartTimestamp = strtotime($eventStartDatetime);
         $eventEndTimestamp = strtotime($eventEndDatetime);
         
-<<<<<<< HEAD
-        // Ã¢Å“â€¦ PRIORITY 1: Check if event has ended (cleanup)
-        if ($currentTimestamp > $eventEndTimestamp) {
-            $cancelStmt = $conn->prepare("UPDATE bookings SET booking_status = 'cancelled', rejection_reason = 'Event has ended', updated_at = NOW() WHERE id = ?");
-            $cancelStmt->execute([$booking_id]);
-            
-            error_log("Auto-cancelled booking #$booking_id - Event ended at $eventEndDatetime");
-            
-            echo json_encode([
-                'status' => 'auto_cancelled', 
-                'reason' => 'event_ended',
-                'message' => 'Event has ended'
-            ]);
-            exit;
-        }
-=======
 // ✓ PRIORITY 1: Check if event has ended - AUTO-COMPLETE
 if ($currentTimestamp > $eventEndTimestamp) {
     // If approved and paid, mark as completed instead of cancelled
@@ -1067,7 +1038,6 @@ if ($currentTimestamp > $eventEndTimestamp) {
     }
     exit;
 }
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
         
         // Ã¢Å“â€¦ PRIORITY 2: Check payment deadline (if approved and not paid)
         if ($booking['booking_status'] === 'approved' && $booking['payment_status'] !== 'paid' && !empty($booking['approved_at'])) {
@@ -1770,8 +1740,6 @@ if ($currentTimestamp > $eventEndTimestamp) {
                 border: 1px solid #ef4444;
             }
 
-<<<<<<< HEAD
-=======
             /* ========== COMPLETED EVENT STYLES ========== */
 .status-completed {
     background-color: #DBEAFE;
@@ -1827,7 +1795,6 @@ if ($currentTimestamp > $eventEndTimestamp) {
     margin-top: 1rem;
 }
 
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
             /* Booking Card Styles */
             .booking-card {
                 transition: all 0.2s ease;
@@ -5451,11 +5418,7 @@ if ($currentTimestamp > $eventEndTimestamp) {
                         <i class="fas fa-peso-sign text-green-600 text-sm md:text-2xl"></i>
                     </div>
                     <p class="text-[10px] md:text-sm text-gray-600 mb-0.5 md:mb-1">Spent</p>
-<<<<<<< HEAD
-                    <p class="text-sm md:text-2xl font-bold text-green-600" id="dashboard-total-spent">â‚±0</p>
-=======
                     <p class="text-sm md:text-2xl font-bold text-green-600" id="dashboard-total-spent"> ₱0</p>
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                 </div>
             </div>
         </div>
@@ -5702,8 +5665,6 @@ if ($currentTimestamp > $eventEndTimestamp) {
                     </div>
                 </div>
 
-<<<<<<< HEAD
-=======
                 <!-- Rating Modal -->
 <div id="rating-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
     <div class="bg-white rounded-lg shadow-xl max-w-md w-full">
@@ -5764,7 +5725,6 @@ if ($currentTimestamp > $eventEndTimestamp) {
     </div>
 </div>
 
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                 <!-- ENHANCED Book Now Section with 3 Steps -->
             <section id="section-book" class="hidden">
                 <h2 class="text-2xl font-bold mb-2">Book Now</h2>
@@ -5868,29 +5828,6 @@ if ($currentTimestamp > $eventEndTimestamp) {
                                             <option value="">Select a package</option>
 
                                                 <optgroup label="Ã°Å¸Å½â€š Birthday/Event Packages">
-<<<<<<< HEAD
-                                                    <option value="silver" data-price="767">Silver Package - â‚±767/person (â‚±23K-50K)</option>
-                                                    <option value="gold" data-price="1367">Gold Package - â‚±1,367/person (â‚±41K-69K)</option>
-                                                    <option value="platinum" data-price="1600">Platinum Package - â‚±1,600/person (â‚±48K-82K)</option>
-                                                    <option value="diamond" data-price="2233">Diamond Package - â‚±2,233/person (â‚±67K-97K)</option>
-                                                </optgroup>
-
-                                                <optgroup label="Ã°Å¸â€™Â Wedding Packages">
-                                                    <option value="basic_wedding" data-price="1400">Basic Wedding - â‚±1,400/person (â‚±42K-75K)</option>
-                                                    <option value="premium_wedding" data-price="2600">Premium Wedding - â‚±2,600/person (â‚±130K-165K)</option>
-                                                </optgroup>
-
-                                                <optgroup label="Ã°Å¸â€˜â€” Debut Packages">
-                                                    <option value="silver_debut" data-price="800">Silver Debut - â‚±800/person (â‚±24K-52K)</option>
-                                                    <option value="gold_debut" data-price="1433">Gold Debut - â‚±1,433/person (â‚±43K-72K)</option>
-                                                    <option value="platinum_debut" data-price="1800">Platinum Debut - â‚±1,800/person (â‚±54K-86K)</option>
-                                                </optgroup>
-
-                                                <optgroup label="Ã°Å¸ÂÂ¢ Corporate Packages">
-                                                    <option value="silver_corporate" data-price="833">Silver Corporate - â‚±833/person (â‚±25K-50K)</option>
-                                                    <option value="gold_corporate" data-price="1467">Gold Corporate - â‚±1,467/person (â‚±44K-69K)</option>
-                                                    <option value="platinum_corporate" data-price="1667">Platinum Corporate - â‚±1,667/person (â‚±50K-80K)</option>
-=======
                                                     <option value="silver" data-price="767">Silver Package -  ₱767/person ( ₱23K-50K)</option>
                                                     <option value="gold" data-price="1367">Gold Package -  ₱1,367/person ( ₱41K-69K)</option>
                                                     <option value="platinum" data-price="1600">Platinum Package -  ₱1,600/person ( ₱48K-82K)</option>
@@ -5912,7 +5849,6 @@ if ($currentTimestamp > $eventEndTimestamp) {
                                                     <option value="silver_corporate" data-price="833">Silver Corporate -  ₱833/person ( ₱25K-50K)</option>
                                                     <option value="gold_corporate" data-price="1467">Gold Corporate -  ₱1,467/person ( ₱44K-69K)</option>
                                                     <option value="platinum_corporate" data-price="1667">Platinum Corporate -  ₱1,667/person ( ₱50K-80K)</option>
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                                                 </optgroup>
                                         </select>
                                     </div>
@@ -5959,28 +5895,16 @@ if ($currentTimestamp > $eventEndTimestamp) {
                                             <div class="space-y-1">
                                                 <div class="flex justify-between text-sm">
                                                     <span>Base Package:</span>
-<<<<<<< HEAD
-                                                    <span id="base-price">â‚±0.00</span>
-                                                </div>
-                                                <div class="flex justify-between text-sm" id="additional-items-container" style="display: none;">
-                                                    <span>Additional Items:</span>
-                                                    <span id="additional-price">â‚±0.00</span>
-=======
                                                     <span id="base-price"> ₱0.00</span>
                                                 </div>
                                                 <div class="flex justify-between text-sm" id="additional-items-container" style="display: none;">
                                                     <span>Additional Items:</span>
                                                     <span id="additional-price"> ₱0.00</span>
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="text-right">
-<<<<<<< HEAD
-                                            <div class="text-2xl font-bold" id="total-display">â‚±0.00</div>
-=======
                                             <div class="text-2xl font-bold" id="total-display"> ₱0.00</div>
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                                             <div class="text-xs opacity-90">
                                                 for <span id="guest-display">0</span>
                                             </div>
@@ -6077,28 +6001,16 @@ if ($currentTimestamp > $eventEndTimestamp) {
                                             <div class="space-y-1">
                                                 <div class="flex justify-between text-sm">
                                                     <span>Base Package:</span>
-<<<<<<< HEAD
-                                                    <span id="base-price-step2">â‚±0.00</span>
-                                                </div>
-                                                <div class="flex justify-between text-sm" id="additional-items-container-step2" style="display: none;">
-                                                    <span>Additional Items:</span>
-                                                    <span id="additional-price-step2">â‚±0.00</span>
-=======
                                                     <span id="base-price-step2"> ₱0.00</span>
                                                 </div>
                                                 <div class="flex justify-between text-sm" id="additional-items-container-step2" style="display: none;">
                                                     <span>Additional Items:</span>
                                                     <span id="additional-price-step2"> ₱0.00</span>
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="text-right">
-<<<<<<< HEAD
-                                            <div class="text-2xl font-bold text-[#DC2626]" id="total-display-step2">â‚±0.00</div>
-=======
                                             <div class="text-2xl font-bold text-[#DC2626]" id="total-display-step2"> ₱0.00</div>
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                                             <div class="text-xs text-gray-600">
                                                 for <span id="guest-display-step2">0</span> guests
                                             </div>
@@ -6201,40 +6113,24 @@ if ($currentTimestamp > $eventEndTimestamp) {
                                                 <div class="font-semibold text-[#DC2626] mb-3 text-base border-b pb-2">Main Dishes</div>
                                                 <div class="space-y-2">
                                                     <label class="flex items-center hover:bg-gray-50 p-2 rounded transition-colors">
-                                                        <input type="checkbox" name="menu_main[]" value="lechon_kawali" data-price="50" class="mr-3 text-[#DC2626] w-4 h-4">
-                                                        <span class="flex-1">Example</span>
-<<<<<<< HEAD
-                                                        <span class="text-[#DC2626] font-medium">+â‚±1150</span>
-=======
+                                                        <input type="checkbox" name="menu_main[]" value="Creamy Chicken Ala King" data-price="50" class="mr-3 text-[#DC2626] w-4 h-4">
+                                                        <span class="flex-1">Creamy Chicken Ala King</span>
                                                         <span class="text-[#DC2626] font-medium">+ ₱1150</span>
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                                                     </label>
                                                     <label class="flex items-center hover:bg-gray-50 p-2 rounded transition-colors">
-                                                        <input type="checkbox" name="menu_main[]" value="chicken_adobo" data-price="30" class="mr-3 text-[#DC2626] w-4 h-4">
-                                                        <span class="flex-1">Exampe</span>
-<<<<<<< HEAD
-                                                        <span class="text-[#DC2626] font-medium">+â‚±1130</span>
-=======
+                                                        <input type="checkbox" name="menu_main[]" value="Baked Roast Chicken" data-price="30" class="mr-3 text-[#DC2626] w-4 h-4">
+                                                        <span class="flex-1">Baked Roast Chicken</span>
                                                         <span class="text-[#DC2626] font-medium">+ ₱1130</span>
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                                                     </label>
                                                     <label class="flex items-center hover:bg-gray-50 p-2 rounded transition-colors">
-                                                        <input type="checkbox" name="menu_main[]" value="beef_caldereta" data-price="75" class="mr-3 text-[#DC2626] w-4 h-4">
-                                                        <span class="flex-1">Exampe</span>
-<<<<<<< HEAD
-                                                        <span class="text-[#DC2626] font-medium">+â‚±1175</span>
-=======
+                                                        <input type="checkbox" name="menu_main[]" value="Beef in Creamy Mushroom Sauce" data-price="75" class="mr-3 text-[#DC2626] w-4 h-4">
+                                                        <span class="flex-1">Beef in Creamy Mushroom Sauce</span>
                                                         <span class="text-[#DC2626] font-medium">+ ₱1175</span>
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                                                     </label>
                                                     <label class="flex items-center hover:bg-gray-50 p-2 rounded transition-colors">
-                                                        <input type="checkbox" name="menu_main[]" value="sweet_sour_fish" data-price="60" class="mr-3 text-[#DC2626] w-4 h-4">
-                                                        <span class="flex-1">Exampe</span>
-<<<<<<< HEAD
-                                                        <span class="text-[#DC2626] font-medium">+â‚±1160</span>
-=======
+                                                        <input type="checkbox" name="menu_main[]" value="Crispy Pork Belly" data-price="60" class="mr-3 text-[#DC2626] w-4 h-4">
+                                                        <span class="flex-1">Crispy Pork Belly</span>
                                                         <span class="text-[#DC2626] font-medium">+ ₱1160</span>
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                                                     </label>
                                                 </div>
                                             </div>
@@ -6243,40 +6139,24 @@ if ($currentTimestamp > $eventEndTimestamp) {
                                                 <div class="font-semibold text-[#DC2626] mb-3 text-base border-b pb-2">Side Dishes</div>
                                                 <div class="space-y-2">
                                                     <label class="flex items-center hover:bg-gray-50 p-2 rounded transition-colors">
-                                                        <input type="checkbox" name="menu_side[]" value="pancit_canton" data-price="25" class="mr-3 text-[#DC2626] w-4 h-4">
-                                                        <span class="flex-1">Exampe</span>
-<<<<<<< HEAD
-                                                        <span class="text-[#DC2626] font-medium">+â‚±1125</span>
-=======
+                                                        <input type="checkbox" name="menu_side[]" value="Creamy Chicken Ala King" data-price="25" class="mr-3 text-[#DC2626] w-4 h-4">
+                                                        <span class="flex-1">Creamy Chicken Ala King</span>
                                                         <span class="text-[#DC2626] font-medium">+ ₱1125</span>
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                                                     </label>
                                                     <label class="flex items-center hover:bg-gray-50 p-2 rounded transition-colors">
-                                                        <input type="checkbox" name="menu_side[]" value="fried_rice" data-price="20" class="mr-3 text-[#DC2626] w-4 h-4">
-                                                        <span class="flex-1">Exampe</span>
-<<<<<<< HEAD
-                                                        <span class="text-[#DC2626] font-medium">+â‚±1120</span>
-=======
+                                                        <input type="checkbox" name="menu_side[]" value="Creamy Garlic Butter Shrimp" data-price="20" class="mr-3 text-[#DC2626] w-4 h-4">
+                                                        <span class="flex-1">Creamy Garlic Butter Shrimp</span>
                                                         <span class="text-[#DC2626] font-medium">+ ₱1120</span>
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                                                     </label>
                                                     <label class="flex items-center hover:bg-gray-50 p-2 rounded transition-colors">
-                                                        <input type="checkbox" name="menu_side[]" value="lumpiang_shanghai" data-price="35" class="mr-3 text-[#DC2626] w-4 h-4">
-                                                        <span class="flex-1">Exampe</span>
-<<<<<<< HEAD
-                                                        <span class="text-[#DC2626] font-medium">+â‚±1135</span>
-=======
+                                                        <input type="checkbox" name="menu_side[]" value="Baked Macaroni" data-price="35" class="mr-3 text-[#DC2626] w-4 h-4">
+                                                        <span class="flex-1">Baked Macaroni</span>
                                                         <span class="text-[#DC2626] font-medium">+ ₱1135</span>
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                                                     </label>
                                                     <label class="flex items-center hover:bg-gray-50 p-2 rounded transition-colors">
-                                                        <input type="checkbox" name="menu_side[]" value="mixed_vegetables" data-price="15" class="mr-3 text-[#DC2626] w-4 h-4">
-                                                        <span class="flex-1">Exampe</span>
-<<<<<<< HEAD
-                                                        <span class="text-[#DC2626] font-medium">+â‚±1115</span>
-=======
+                                                        <input type="checkbox" name="menu_side[]" value="Buttered Mixed Vegetables" data-price="15" class="mr-3 text-[#DC2626] w-4 h-4">
+                                                        <span class="flex-1">Buttered Mixed Vegetables</span>
                                                         <span class="text-[#DC2626] font-medium">+ ₱1115</span>
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                                                     </label>
                                                 </div>
                                             </div>
@@ -6285,40 +6165,24 @@ if ($currentTimestamp > $eventEndTimestamp) {
                                                 <div class="font-semibold text-[#DC2626] mb-3 text-base border-b pb-2">Desserts</div>
                                                 <div class="space-y-2">
                                                     <label class="flex items-center hover:bg-gray-50 p-2 rounded transition-colors">
-                                                        <input type="checkbox" name="menu_dessert[]" value="leche_flan" data-price="40" class="mr-3 text-[#DC2626] w-4 h-4">
-                                                        <span class="flex-1">Exampe</span>
-<<<<<<< HEAD
-                                                        <span class="text-[#DC2626] font-medium">+â‚±2240</span>
-=======
+                                                        <input type="checkbox" name="menu_dessert[]" value="Ube Halaya" data-price="40" class="mr-3 text-[#DC2626] w-4 h-4">
+                                                        <span class="flex-1">Ube Halaya</span>
                                                         <span class="text-[#DC2626] font-medium">+ ₱2240</span>
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                                                     </label>
                                                     <label class="flex items-center hover:bg-gray-50 p-2 rounded transition-colors">
-                                                        <input type="checkbox" name="menu_dessert[]" value="halo_halo" data-price="45" class="mr-3 text-[#DC2626] w-4 h-4">
-                                                        <span class="flex-1">Exampe</span>
-<<<<<<< HEAD
-                                                        <span class="text-[#DC2626] font-medium">+â‚±45</span>
-=======
-                                                        <span class="text-[#DC2626] font-medium">+ ₱45</span>
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
+                                                        <input type="checkbox" name="menu_dessert[]" value="Pork Hamonado" data-price="45" class="mr-3 text-[#DC2626] w-4 h-4">
+                                                        <span class="flex-1">Pork Hamonado</span>
+                                                        <span class="text-[#DC2626] font-medium">+ ₱1245</span>
                                                     </label>
                                                     <label class="flex items-center hover:bg-gray-50 p-2 rounded transition-colors">
-                                                        <input type="checkbox" name="menu_dessert[]" value="buko_pie" data-price="55" class="mr-3 text-[#DC2626] w-4 h-4">
-                                                        <span class="flex-1">Exampe</span>
-<<<<<<< HEAD
-                                                        <span class="text-[#DC2626] font-medium">+â‚±1155</span>
-=======
+                                                        <input type="checkbox" name="menu_dessert[]" value="bLemon Pepper Chicken" data-price="55" class="mr-3 text-[#DC2626] w-4 h-4">
+                                                        <span class="flex-1">Lemon Pepper Chicken</span>
                                                         <span class="text-[#DC2626] font-medium">+ ₱1155</span>
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                                                     </label>
                                                     <label class="flex items-center hover:bg-gray-50 p-2 rounded transition-colors">
-                                                        <input type="checkbox" name="menu_dessert[]" value="ice_cream" data-price="30" class="mr-3 text-[#DC2626] w-4 h-4">
-                                                        <span class="flex-1">Exampe</span>
-<<<<<<< HEAD
-                                                        <span class="text-[#DC2626] font-medium">+â‚±1130</span>
-=======
+                                                        <input type="checkbox" name="menu_dessert[]" value="Baked Creamy Salmon" data-price="30" class="mr-3 text-[#DC2626] w-4 h-4">
+                                                        <span class="flex-1">Baked Creamy Salmon</span>
                                                         <span class="text-[#DC2626] font-medium">+ ₱1130</span>
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                                                     </label>
                                                 </div>
                                             </div>
@@ -6338,28 +6202,16 @@ if ($currentTimestamp > $eventEndTimestamp) {
                                             <div class="space-y-1">
                                                 <div class="flex justify-between text-sm">
                                                     <span>Base Package:</span>
-<<<<<<< HEAD
-                                                    <span id="base-price-step3">â‚±0.00</span>
-                                                </div>
-                                                <div class="flex justify-between text-sm" id="additional-items-container-step3" style="display: none;">
-                                                    <span>Additional Items:</span>
-                                                    <span id="additional-price-step3">â‚±0.00</span>
-=======
                                                     <span id="base-price-step3"> ₱0.00</span>
                                                 </div>
                                                 <div class="flex justify-between text-sm" id="additional-items-container-step3" style="display: none;">
                                                     <span>Additional Items:</span>
                                                     <span id="additional-price-step3"> ₱0.00</span>
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="text-right">
-<<<<<<< HEAD
-                                            <div class="text-2xl font-bold text-gray-800" id="total-display-step3">â‚±0.00</div>
-=======
                                             <div class="text-2xl font-bold text-gray-800" id="total-display-step3"> ₱0.00</div>
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                                             <div class="text-xs text-gray-600">
                                                 for <span id="guest-display-step3">0</span> guests
                                             </div>
@@ -6535,7 +6387,7 @@ if ($currentTimestamp > $eventEndTimestamp) {
                             <i class="fas fa-utensils mr-2 text-[#DC2626]"></i>
                             Premium
                         </span>
-                        <button class="view-menu-btn bg-[#DC2626] hover:bg-[#B91C1C] text-white px-4 py-2 rounded-lg transition-colors text-sm font-medium">
+                         <button class="view-menu-btn bg-[#DC2626] hover:bg-[#B91C1C] text-white px-4 py-2 rounded-lg transition-colors text-sm font-medium">
                             View Details
                         </button>
                     </div>
@@ -7551,11 +7403,7 @@ if (typeof window !== 'undefined') {
                                         <p class="text-xs text-gray-600">Upcoming</p>
                                     </div>
                                     <div class="bg-green-50 rounded-lg p-3">
-<<<<<<< HEAD
-                                        <p class="text-2xl font-bold text-green-600" id="total-spent">â‚±0.00</p>
-=======
                                         <p class="text-2xl font-bold text-green-600" id="total-spent"> ₱0.00</p>
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                                         <p class="text-xs text-gray-600">Total Spent</p>
                                     </div>
                                 </div>
@@ -8069,11 +7917,7 @@ function loadDashboardData() {
             document.getElementById('dashboard-total-bookings').textContent = data.total_bookings || 0;
             document.getElementById('dashboard-upcoming-events').textContent = data.upcoming_events || 0;
             document.getElementById('dashboard-pending-bookings').textContent = data.pending_bookings || 0;
-<<<<<<< HEAD
-            document.getElementById('dashboard-total-spent').textContent = 'â‚±' + (parseFloat(data.total_spent || 0)).toLocaleString('en-PH', {
-=======
             document.getElementById('dashboard-total-spent').textContent = ' ₱' + (parseFloat(data.total_spent || 0)).toLocaleString('en-PH', {
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2
             });
@@ -8199,12 +8043,8 @@ function displayDashboardRecentActivity(bookings) {
         const statusConfig = {
             'approved': { icon: 'fa-check-circle', color: 'text-green-600', bg: 'bg-green-50', text: 'Approved' },
             'pending': { icon: 'fa-clock', color: 'text-yellow-600', bg: 'bg-yellow-50', text: 'Pending' },
-<<<<<<< HEAD
-            'cancelled': { icon: 'fa-times-circle', color: 'text-red-600', bg: 'bg-red-50', text: 'Cancelled' }
-=======
             'cancelled': { icon: 'fa-times-circle', color: 'text-red-600', bg: 'bg-red-50', text: 'Cancelled' },
             'completed': { icon: 'fa-check-double', color: 'text-blue-600', bg: 'bg-blue-50', text: 'Completed' }
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
         };
         
         const status = statusConfig[booking.booking_status] || statusConfig.pending;
@@ -8493,15 +8333,9 @@ function updatePriceCalculator() {
 
             function updateAllPriceDisplays(basePrice, additionalPrice, guestCount) {
                 const totalPrice = basePrice + additionalPrice;
-<<<<<<< HEAD
-                const formattedBase = `â‚±${basePrice.toLocaleString()}.00`;
-                const formattedAdditional = `â‚±${additionalPrice.toLocaleString()}.00`;
-                const formattedTotal = `â‚±${totalPrice.toLocaleString()}.00`;
-=======
                 const formattedBase = ` ₱${basePrice.toLocaleString()}.00`;
                 const formattedAdditional = ` ₱${additionalPrice.toLocaleString()}.00`;
                 const formattedTotal = ` ₱${totalPrice.toLocaleString()}.00`;
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                 
                 // Step 1 displays
                 document.getElementById('base-price').textContent = formattedBase;
@@ -8572,17 +8406,6 @@ function updatePriceCalculator() {
 
             function resetPriceDisplay() {
                 const priceElements = [
-<<<<<<< HEAD
-                    { id: 'base-price', value: 'â‚±0.00' },
-                    { id: 'base-price-step2', value: 'â‚±0.00' },
-                    { id: 'base-price-step3', value: 'â‚±0.00' },
-                    { id: 'additional-price', value: 'â‚±0.00' },
-                    { id: 'additional-price-step2', value: 'â‚±0.00' },
-                    { id: 'additional-price-step3', value: 'â‚±0.00' },
-                    { id: 'total-display', value: 'â‚±0.00' },
-                    { id: 'total-display-step2', value: 'â‚±0.00' },
-                    { id: 'total-display-step3', value: 'â‚±0.00' },
-=======
                     { id: 'base-price', value: ' ₱0.00' },
                     { id: 'base-price-step2', value: ' ₱0.00' },
                     { id: 'base-price-step3', value: ' ₱0.00' },
@@ -8592,7 +8415,6 @@ function updatePriceCalculator() {
                     { id: 'total-display', value: ' ₱0.00' },
                     { id: 'total-display-step2', value: ' ₱0.00' },
                     { id: 'total-display-step3', value: ' ₱0.00' },
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                     { id: 'guest-display', value: '0 guests' },
                     { id: 'guest-display-step2', value: '0 guests' },
                     { id: 'guest-display-step3', value: '0 guests' }
@@ -8708,11 +8530,7 @@ function showpreviewModal(booking) {
     let priceNote = 'Final price subject to admin review and location assessment';
     
     if (booking.package_price && booking.package_price > 0) {
-<<<<<<< HEAD
-        priceDisplay = `â‚±${parseFloat(booking.package_price).toLocaleString('en-PH', {
-=======
         priceDisplay = ` ₱${parseFloat(booking.package_price).toLocaleString('en-PH', {
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
             minimumFractionDigits: 2,
             maximumFractionDigits: 2
         })}`;
@@ -8859,11 +8677,7 @@ function showpreviewModal(booking) {
             <!-- Package Cost -->
             <div class="flex justify-between items-center pb-2 border-b">
                 <span class="text-sm text-gray-600">Package Cost:</span>
-<<<<<<< HEAD
-                <span class="font-semibold text-gray-900">â‚±${parseFloat(booking.package_price || 0).toLocaleString('en-PH', {
-=======
                 <span class="font-semibold text-gray-900"> ₱${parseFloat(booking.package_price || 0).toLocaleString('en-PH', {
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2
                 })}</span>
@@ -8878,11 +8692,7 @@ function showpreviewModal(booking) {
                     <div class="text-xs text-gray-500 italic mt-1 charge-description" style="max-width: 300px; line-height: 1.4;">${booking.charge_description}</div>
                     ` : ''}
                 </div>
-<<<<<<< HEAD
-                <span class="font-semibold text-gray-900 ml-4">â‚±${parseFloat(booking.service_charge).toLocaleString('en-PH', {
-=======
                 <span class="font-semibold text-gray-900 ml-4"> ₱${parseFloat(booking.service_charge).toLocaleString('en-PH', {
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2
                 })}</span>
@@ -8898,11 +8708,7 @@ function showpreviewModal(booking) {
             <!-- Total -->
             <div class="flex justify-between items-center pt-2 bg-green-50 -mx-4 px-4 py-3">
                 <span class="text-base font-bold text-green-800">TOTAL PAID:</span>
-<<<<<<< HEAD
-                <span class="text-2xl font-bold text-green-600">â‚±${parseFloat(booking.total_price || booking.package_price || 0).toLocaleString('en-PH', {
-=======
                 <span class="text-2xl font-bold text-green-600"> ₱${parseFloat(booking.total_price || booking.package_price || 0).toLocaleString('en-PH', {
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2
                 })}</span>
@@ -8919,11 +8725,7 @@ function showpreviewModal(booking) {
             <!-- Package Cost -->
             <div class="flex justify-between items-center">
                 <span class="text-sm text-gray-600">Package Cost:</span>
-<<<<<<< HEAD
-                <span class="font-semibold text-gray-900">â‚±${parseFloat(booking.package_price || 0).toLocaleString('en-PH', {
-=======
                 <span class="font-semibold text-gray-900"> ₱${parseFloat(booking.package_price || 0).toLocaleString('en-PH', {
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2
                 })}</span>
@@ -8938,11 +8740,7 @@ function showpreviewModal(booking) {
                     <div class="text-xs text-gray-500 italic mt-1 charge-description" style="max-width: 300px; line-height: 1.4;">${booking.charge_description}</div>
                     ` : ''}
                 </div>
-<<<<<<< HEAD
-                <span class="font-semibold text-gray-900 ml-4">â‚±${parseFloat(booking.service_charge).toLocaleString('en-PH', {
-=======
                 <span class="font-semibold text-gray-900 ml-4"> ₱${parseFloat(booking.service_charge).toLocaleString('en-PH', {
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2
                 })}</span>
@@ -8952,11 +8750,7 @@ function showpreviewModal(booking) {
             <!-- Total -->
             <div class="flex justify-between items-center pt-2 border-t">
                 <span class="text-base font-bold text-[#DC2626]">Estimated Total:</span>
-<<<<<<< HEAD
-                <span class="text-2xl font-bold text-[#DC2626]">â‚±${parseFloat(booking.total_price || booking.package_price || 0).toLocaleString('en-PH', {
-=======
                 <span class="text-2xl font-bold text-[#DC2626]"> ₱${parseFloat(booking.total_price || booking.package_price || 0).toLocaleString('en-PH', {
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2
                 })}</span>
@@ -8971,8 +8765,6 @@ function showpreviewModal(booking) {
     `}
 </div>
 
-<<<<<<< HEAD
-=======
 <!-- ⭐ CUSTOMER RATING SECTION (if completed & rated) -->
 ${booking.booking_status === 'completed' && booking.event_rating && booking.event_rating > 0 ? `
     <div class="bg-yellow-50 border-2 border-yellow-400 rounded-lg p-4 mb-6">
@@ -9004,7 +8796,6 @@ ${booking.booking_status === 'completed' && booking.event_rating && booking.even
 <!-- Important Information -->
 <div class="bg-blue-50 border-l-4 border-blue-500 rounded p-4">
 
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
             <!-- Important Information -->
             <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
                 <div class="flex items-start">
@@ -9054,15 +8845,9 @@ ${booking.booking_status === 'completed' && booking.event_rating && booking.even
                 });
                 
                     // Calculate price if package_price exists, otherwise estimate
-<<<<<<< HEAD
-                    let displayPrice = 'â‚±0.00';
-                    if (booking.package_price && booking.package_price > 0) {
-                        displayPrice = `â‚±${parseFloat(booking.package_price).toLocaleString('en-PH', {
-=======
                     let displayPrice = ' ₱0.00';
                     if (booking.package_price && booking.package_price > 0) {
                         displayPrice = ` ₱${parseFloat(booking.package_price).toLocaleString('en-PH', {
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                             minimumFractionDigits: 2,
                             maximumFractionDigits: 2
                         })}`;
@@ -9073,11 +8858,7 @@ ${booking.booking_status === 'completed' && booking.event_rating && booking.even
                     
                     if (packagePricing && packagePricing[guestCount]) {
                         const estimatedPrice = packagePricing[guestCount];
-<<<<<<< HEAD
-                        displayPrice = `â‚±${estimatedPrice.toLocaleString()}`;
-=======
                         displayPrice = ` ₱${estimatedPrice.toLocaleString()}`;
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                     }
                 }
                                 
@@ -9088,22 +8869,6 @@ ${booking.booking_status === 'completed' && booking.event_rating && booking.even
                 let statusIcon = '';
                 let statusMessage = '';
                 
-<<<<<<< HEAD
-                switch(booking.booking_status) {
-                    case 'pending':
-                        statusIcon = '<i class="fas fa-clock text-yellow-600"></i>';
-                        statusMessage = isPast ? 'Was pending approval' : 'Waiting for admin approval';
-                        break;
-                    case 'approved':
-                        statusIcon = '<i class="fas fa-check-circle text-green-600"></i>';
-                        statusMessage = isPast ? 'Event completed successfully' : 'Confirmed! Your event is approved';
-                        break;
-                    case 'cancelled':
-                        statusIcon = '<i class="fas fa-times-circle text-red-600"></i>';
-                        statusMessage = 'This booking was cancelled';
-                        break;
-                }
-=======
             switch(booking.booking_status) {
                 case 'pending':
                     statusIcon = '<i class="fas fa-clock text-yellow-600"></i>';
@@ -9122,7 +8887,6 @@ ${booking.booking_status === 'completed' && booking.event_rating && booking.even
                     statusMessage = 'Event completed - Thank you for choosing us!';
                     break;
             }
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                 
                 const ageDisplay = booking.event_type === 'birthday' && booking.celebrant_age ? 
                     ` (Age ${booking.celebrant_age})` : '';
@@ -9158,24 +8922,6 @@ ${booking.booking_status === 'completed' && booking.event_rating && booking.even
                                         <div class="text-sm text-gray-500">Booking ID</div>
                                         <div class="font-mono text-sm">#${booking.id.toString().padStart(4, '0')}</div>
                                     </div>
-<<<<<<< HEAD
-                                <div class="mt-2 flex gap-2">
-                                    ${booking.booking_status === 'approved' ? `
-                                    <button onclick='showpreviewModal(${JSON.stringify(booking)})' 
-                                        class="flex-1 bg-blue-500 hover:bg-blue-600 text-white px-5 py-1 text-xs rounded-lg transition-colors" 
-                                        title="View official booking receipt">
-                                        <i class="fas fa-file-invoice mr-1"></i>Official Receipt
-                                    </button>
-                                    ` : ''}
-                                    ${canDelete ? `
-                                    <button onclick="showDeleteModal(${booking.id}, '${booking.celebrant_name}', '${booking.event_type}')" 
-                                        class="flex-1 bg-red-500 hover:bg-red-600 text-white px-3 py-1 text-xs rounded-lg transition-colors" 
-                                        title="Delete this booking">
-                                        <i class="fas fa-trash mr-1"></i>Cancel     
-                                    </button>
-                                    ` : ''}
-                                </div>
-=======
                                <div class="mt-2 flex gap-2">
     ${booking.booking_status === 'approved' || booking.booking_status === 'completed' ? `
     <button onclick='showpreviewModal(${JSON.stringify(booking)})' 
@@ -9199,7 +8945,6 @@ ${booking.booking_status === 'completed' && booking.event_rating && booking.even
     </button>
     ` : ''}
 </div>
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                                 </div>
                             </div>
                             
@@ -9262,72 +9007,6 @@ ${booking.booking_status === 'completed' && booking.event_rating && booking.even
                             </div>
                             ` : ''}
                             
-<<<<<<< HEAD
-                ${!isPast ? (booking.booking_status === 'approved' ? `
-            <div class="mt-3 space-y-2">
-                <div class="flex items-center gap-2 mb-2">
-                    <div class="h-0.5 flex-1 bg-gradient-to-r from-green-400 to-green-600 rounded-full"></div>
-                    <span class="text-xs font-semibold text-green-700">âœ“ Event Confirmed</span>
-                    <div class="h-0.5 flex-1 bg-gradient-to-r from-green-600 to-green-400 rounded-full"></div>
-                </div>
-                
-                ${booking.payment_status !== 'paid' ? `
-                    <!-- Payment Countdown -->
-                    <div class="p-3 bg-white rounded-lg">
-                        <div class="flex items-center gap-2 mb-1">
-                            <i class="fas fa-exclamation-triangle text-yellow-600 text-xs"></i>
-                            <span class="font-semibold text-yellow-800 text-xs">â° Payment Deadline</span>
-                        </div>
-                        <div class="text-xs text-gray-600 mb-1">Complete downpayment within:</div>
-                        <div id="payment-countdown-${booking.id}" class="text-sm font-bold text-yellow-700 payment-countdown" 
-                            data-booking-id="${booking.id}">
-                            Calculating...
-                        </div>
-                        <p class="text-xs text-yellow-600 mt-1">âš ï¸ Booking will auto-cancel if not paid</p>
-                    </div>
-                ` : ''}
-                
-                <!-- Event Countdown -->
-                <div class="p-3 bg-white rounded-lg">
-                    <div class="flex items-center gap-2 mb-1">
-                        <i class="fas fa-calendar-check text-blue-600 text-xs"></i>
-                        <span class="font-semibold text-blue-800 text-xs">ðŸ“… Event Countdown</span>
-                    </div>
-                    <div id="event-countdown-${booking.id}" class="text-sm font-bold text-blue-700 event-countdown" 
-                        data-booking-id="${booking.id}">
-                        Calculating...
-                    </div>
-                    <p class="text-xs text-blue-600 mt-1">${formattedDate} at ${startTime12}</p>
-                </div>
-            </div>
-        </div>
-    </div>
-                            ` : booking.booking_status === 'pending' ? `
-                            <div class="mt-4 p-4 bg-gradient-to-r from-yellow-50 to-yellow-100 border border-yellow-200 rounded-lg">
-                                <div class="flex items-center gap-3">
-                                    <div class="flex-shrink-0">
-                                        <i class="fas fa-hourglass-half text-yellow-600 text-xl"></i>
-                                    </div>
-                                    <div class="flex-1">
-                                        <div class="font-semibold text-yellow-800">Pending Approval</div>
-                                        <p class="text-sm text-yellow-700 mt-1">We're reviewing your booking. You'll be notified once it's approved!</p>
-                                    </div>
-                                </div>
-                            </div>
-                            ` : `
-                            <div class="mt-4 p-4 bg-gradient-to-r from-red-50 to-red-100 border border-red-200 rounded-lg">
-                                <div class="flex items-center gap-3">
-                                    <div class="flex-shrink-0">
-                                        <i class="fas fa-ban text-red-600 text-xl"></i>
-                                    </div>
-                                    <div class="flex-1">
-                                        <div class="font-semibold text-red-800">Booking Cancelled</div>
-                                        <p class="text-sm text-red-700 mt-1">This booking was cancelled. Contact us if you have questions.</p>
-                                    </div>
-                                </div>
-                            </div>  
-                            `) : ''}
-=======
  ${!isPast ? (booking.booking_status === 'completed' ? `
     ${booking.event_rating ? `
     <!-- Rating Display -->
@@ -9412,7 +9091,6 @@ ${booking.booking_status === 'completed' && booking.event_rating && booking.even
     </div>
 </div>  
 `) : ''}
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                         </div>
                     `;
                 }
@@ -9671,11 +9349,7 @@ function showSuccessModal(bookingData) {
                     </div>
                     <h3 class="text-lg font-medium text-gray-900 mb-4">Booking Submitted Successfully!</h3>
                     <div class="text-sm text-gray-500 mb-6">
-<<<<<<< HEAD
-                        <p class="mb-2">Your booking has been submitted with a total cost of <strong>â‚±${totalCost.toLocaleString()}</strong>.</p>
-=======
                         <p class="mb-2">Your booking has been submitted with a total cost of <strong> ₱${totalCost.toLocaleString()}</strong>.</p>
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                         <div class="text-left bg-gray-50 p-4 rounded-lg">
                             <p class="font-semibold mb-2">What happens next:</p>
                             <ul class="text-xs space-y-1">
@@ -9776,11 +9450,7 @@ function showpreviewModal(booking) {
     let priceNote = 'Final price subject to admin review and location assessment';
     
     if (booking.package_price && booking.package_price > 0) {
-<<<<<<< HEAD
-        priceDisplay = `â‚±${parseFloat(booking.package_price).toLocaleString('en-PH', {
-=======
         priceDisplay = ` ₱${parseFloat(booking.package_price).toLocaleString('en-PH', {
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
             minimumFractionDigits: 2,
             maximumFractionDigits: 2
         })}`;
@@ -9873,11 +9543,6 @@ content.innerHTML = `
         </div>
         ` : ''}
 
-<<<<<<< HEAD
-        <!-- Status Badges -->
-        <div class="flex justify-center gap-4 mb-4">
-            <!-- Booking Status -->
-=======
     <!-- Status Badges -->
     <div class="flex justify-center gap-4 mb-4">
         ${booking.booking_status === 'completed' ? `
@@ -9895,25 +9560,10 @@ content.innerHTML = `
             ` : ''}
         ` : `
             <!-- REGULAR STATUS (Approved/Pending/Cancelled) -->
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
             <div class="flex items-center gap-2 px-4 py-2 rounded-full ${status.class}">
                 <i class="fas ${status.icon}"></i>
                 <span class="font-semibold text-sm">${status.text}</span>
             </div>
-<<<<<<< HEAD
-
-            <!-- Payment Status (UNPAID = yellow text only) -->
-            <div class="flex items-center gap-2 px-4 py-2 rounded-full 
-                ${booking.payment_status === 'paid' ? paymentStatus.class : 'text-yellow-600'}">
-                
-                <i class="fas ${paymentStatus.icon} ${booking.payment_status !== 'paid' ? 'text-yellow-600' : ''}"></i>
-
-                <span class="font-semibold text-sm">
-                    ${booking.payment_status !== 'paid' ? 'UNPAID' : paymentStatus.text}
-                </span>
-            </div>
-        </div>
-=======
             
             <div class="flex items-center gap-2 px-4 py-2 rounded-full ${paymentStatus.class}">
                 <i class="fas ${paymentStatus.icon}"></i>
@@ -9921,7 +9571,6 @@ content.innerHTML = `
             </div>
         `}
     </div>
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
 
 
 
@@ -10018,11 +9667,7 @@ ${booking.payment_status === 'paid' ? `
         <!-- Package Cost -->
         <div class="flex justify-between items-center pb-2 border-b gap-4">
             <span class="text-sm text-gray-600">Package Cost:</span>
-<<<<<<< HEAD
-            <span class="font-semibold text-gray-900 whitespace-nowrap">â‚±${parseFloat(booking.package_price || 0).toLocaleString('en-PH', {
-=======
             <span class="font-semibold text-gray-900 whitespace-nowrap"> ₱${parseFloat(booking.package_price || 0).toLocaleString('en-PH', {
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2
             })}</span>
@@ -10036,11 +9681,7 @@ ${booking.payment_status === 'paid' ? `
                 <div class="text-xs text-gray-500 italic mt-1">${booking.charge_description}</div>
                 ` : ''}
             </div>
-<<<<<<< HEAD
-            <span class="font-semibold text-gray-900 ml-4">â‚±${parseFloat(booking.service_charge).toLocaleString('en-PH', {
-=======
             <span class="font-semibold text-gray-900 ml-4"> ₱${parseFloat(booking.service_charge).toLocaleString('en-PH', {
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2
             })}</span>
@@ -10061,11 +9702,7 @@ ${booking.payment_status === 'paid' ? `
         <!-- TOTAL AMMOUNT PRICE -->
         <div class="flex justify-between items-center pt-2 bg-green-50 -mx-4 px-4 py-3">
             <span class="text-base font-bold text-green-800">TOTAL AMMOUNT PRICE:</span>
-<<<<<<< HEAD
-            <span class="text-2xl font-bold text-green-600">â‚±${parseFloat(booking.total_price || booking.package_price || 0).toLocaleString('en-PH', {
-=======
             <span class="text-2xl font-bold text-green-600"> ₱${parseFloat(booking.total_price || booking.package_price || 0).toLocaleString('en-PH', {
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2
             })}</span>
@@ -10084,11 +9721,7 @@ ${booking.payment_status === 'paid' ? `
         <!-- Package Cost -->
         <div class="flex justify-between items-center pb-2 border-b border-yellow-200">
             <span class="text-sm text-gray-700">Package Cost:</span>
-<<<<<<< HEAD
-            <span class="font-semibold text-gray-900">â‚±${parseFloat(booking.package_price || 0).toLocaleString('en-PH', {
-=======
             <span class="font-semibold text-gray-900"> ₱${parseFloat(booking.package_price || 0).toLocaleString('en-PH', {
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2
             })}</span>
@@ -10103,11 +9736,7 @@ ${booking.payment_status === 'paid' ? `
                 <div class="text-xs text-gray-500 italic mt-1 pr-4">${booking.charge_description}</div>
                 ` : ''}
             </div>
-<<<<<<< HEAD
-            <span class="font-semibold text-gray-900 whitespace-nowrap flex-shrink-0">â‚±${parseFloat(booking.service_charge).toLocaleString('en-PH', {
-=======
             <span class="font-semibold text-gray-900 whitespace-nowrap flex-shrink-0"> ₱${parseFloat(booking.service_charge).toLocaleString('en-PH', {
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2
             })}</span>
@@ -10128,11 +9757,7 @@ ${booking.payment_status === 'paid' ? `
         <!-- TOTAL AMMOUNT PRICE -->
         <div class="flex justify-between items-center pt-2 bg-yellow-100 -mx-4 px-4 py-3 border-t border-yellow-200">
             <span class="text-base font-bold text-yellow-800">TOTAL AMMOUNT PRICE:</span>
-<<<<<<< HEAD
-            <span class="text-2xl font-bold text-yellow-600">â‚±${parseFloat(booking.total_price || booking.package_price || 0).toLocaleString('en-PH', {
-=======
             <span class="text-2xl font-bold text-yellow-600"> ₱${parseFloat(booking.total_price || booking.package_price || 0).toLocaleString('en-PH', {
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2
             })}</span>
@@ -10259,11 +9884,7 @@ document.getElementById('preview-modal')?.addEventListener('click', function(e) 
                 name: "Silver Package",
                 category: "Birthday & Events",
                 image: "Catering_Photos/red_silver_package.jpg",
-<<<<<<< HEAD
-                priceRange: "â‚±23,000 - â‚±50,000",
-=======
                 priceRange: " ₱23,000 -  ₱50,000",
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                 description: "Perfect for intimate celebrations with complete buffet setup and themed decorations.",
                 
                 catering: ["Rice", "3 Main Courses", "1 Vegetable", "1 Pasta", "Juice/Water", "Dessert"],
@@ -10292,11 +9913,7 @@ document.getElementById('preview-modal')?.addEventListener('click', function(e) 
                 name: "Gold Package",
                 category: "Birthday & Events",
                 image: "Catering_Photos/red_gold_package.jpg",
-<<<<<<< HEAD
-                priceRange: "â‚±41,000 - â‚±69,000",
-=======
                 priceRange: " ₱41,000 -  ₱69,000",
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                 description: "Enhanced package with professional host, lights & sounds, and photographer or photobooth.",
                 
                 catering: ["Rice", "Pasta", "3 Main Courses", "1 Vegetable Dish", "Juice/Water", "Dessert"],
@@ -10327,11 +9944,7 @@ document.getElementById('preview-modal')?.addEventListener('click', function(e) 
                 name: "Platinum Package",
                 category: "Birthday & Events",
                 image: "Catering_Photos/red_platinum_package.jpg",
-<<<<<<< HEAD
-                priceRange: "â‚±48,000 - â‚±82,000",
-=======
                 priceRange: " ₱48,000 -  ₱82,000",
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                 description: "Premium package with Tiffany chairs, lighted entrance arch, welcome board, and basic balloon ceilings.",
                 
                 catering: ["Rice", "Pasta", "3 Main Courses", "1 Vegetable Dish", "Juice/Water", "Dessert"],
@@ -10362,11 +9975,7 @@ document.getElementById('preview-modal')?.addEventListener('click', function(e) 
                 name: "Diamond Package",
                 category: "Birthday & Events",
                 image: "Catering_Photos/red_diamond_package.jpg",
-<<<<<<< HEAD
-                priceRange: "â‚±67,000 - â‚±97,000",
-=======
                 priceRange: " ₱67,000 -  ₱97,000",
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                 description: "Ultimate package with elegant balloon ceilings, complete entertainment, and premium styling.",
                 
                 catering: ["Rice", "3 Main Courses", "1 Vegetable", "1 Pasta", "Juice/Water", "Dessert"],
@@ -10398,11 +10007,7 @@ document.getElementById('preview-modal')?.addEventListener('click', function(e) 
                 name: "Basic Wedding Package",
                 category: "Wedding",
                 image: "Catering_Photos/basic-wedding-package.jpg",
-<<<<<<< HEAD
-                priceRange: "â‚±42,000 - â‚±75,000",
-=======
                 priceRange: " ₱42,000 -  ₱75,000",
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                 description: "Beautiful wedding catering with elegant styling and complete setup.",
                 
                 catering: ["Rice", "Soup", "Appetizer", "3 Main Courses", "1 Vegetable Dish", "1 Pasta", "Dessert", "Juice/Water"],
@@ -10433,11 +10038,7 @@ document.getElementById('preview-modal')?.addEventListener('click', function(e) 
                 name: "Premium Wedding Package",
                 category: "Wedding",
                 image: "Catering_Photos/premium_wedding_package.jpg",
-<<<<<<< HEAD
-                priceRange: "â‚±130,000 - â‚±165,000",
-=======
                 priceRange: " ₱130,000 -  ₱165,000",
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                 description: "Ultimate wedding with host, lights & sounds, hair & makeup, coordination, and photo/video coverage (SDE).",
                 
                 catering: ["Rice", "Soup", "Appetizer", "3 Main Courses", "1 Vegetable Dish", "1 Pasta", "1 Dessert", "Juice/Water"],
@@ -10467,11 +10068,7 @@ document.getElementById('preview-modal')?.addEventListener('click', function(e) 
                 name: "Silver Debut Package",
                 category: "Debut (18th Birthday)",
                 image: "Catering_Photos/silver_debut_package.jpg",
-<<<<<<< HEAD
-                priceRange: "â‚±24,000 - â‚±52,000",
-=======
                 priceRange: " ₱24,000 -  ₱52,000",
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                 description: "Perfect debut package with essential styling and complete catering.",
                 
                 catering: ["Rice", "Pasta", "3 Main Courses", "1 Vegetable Dish", "Juice/Water", "Dessert"],
@@ -10500,11 +10097,7 @@ document.getElementById('preview-modal')?.addEventListener('click', function(e) 
                 name: "Gold Debut Package",
                 category: "Debut (18th Birthday)",
                 image: "Catering_Photos/gold_debut_package.jpg",
-<<<<<<< HEAD
-                priceRange: "â‚±43,000 - â‚±72,000",
-=======
                 priceRange: " ₱43,000 -  ₱72,000",
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                 description: "Enhanced debut with host, lights & sounds, and photographer from preparation to reception.",
                 
                 catering: ["Rice", "Pasta", "3 Main Courses", "1 Vegetable Dish", "Juice/Water", "Dessert"],
@@ -10535,11 +10128,7 @@ document.getElementById('preview-modal')?.addEventListener('click', function(e) 
                 name: "Platinum Debut Package",
                 category: "Debut (18th Birthday)",
                 image: "Catering_Photos/platinum_debut_package.jpg",
-<<<<<<< HEAD
-                priceRange: "â‚±54,000 - â‚±86,000",
-=======
                 priceRange: " ₱54,000 -  ₱86,000",
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                 description: "Ultimate debut with Tiffany chairs and photo/video coverage (Non-SDE).",
                 
                 catering: ["Rice", "Pasta", "3 Main Courses", "1 Vegetable Dish", "Juice/Water", "Dessert"],
@@ -10571,11 +10160,7 @@ document.getElementById('preview-modal')?.addEventListener('click', function(e) 
                 name: "Silver Corporate Package",
                 category: "Corporate Events",
                 image: "Catering_Photos/silver_corporate_package.jpg",
-<<<<<<< HEAD
-                priceRange: "â‚±25,000 - â‚±50,000",
-=======
                 priceRange: " ₱25,000 -  ₱50,000",
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                 description: "Professional corporate package with complete setup and catering.",
                 
                 catering: ["Rice", "Pasta", "3 Main Courses", "1 Vegetable Dish", "Juice/Water", "Dessert"],
@@ -10604,11 +10189,7 @@ document.getElementById('preview-modal')?.addEventListener('click', function(e) 
                 name: "Gold Corporate Package",
                 category: "Corporate Events",
                 image: "Catering_Photos/gold_corporate_package.jpg",
-<<<<<<< HEAD
-                priceRange: "â‚±44,000 - â‚±69,000",
-=======
                 priceRange: " ₱44,000 -  ₱69,000",
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                 description: "Enhanced corporate with host, lights & sounds, and photographer.",
                 
                 catering: ["Rice", "Pasta", "3 Main Courses", "1 Vegetable Dish", "Juice/Water", "Dessert"],
@@ -10639,11 +10220,7 @@ document.getElementById('preview-modal')?.addEventListener('click', function(e) 
                 name: "Platinum Corporate Package",
                 category: "Corporate Events",
                 image: "Catering_Photos/platinum_corporate_package.jpg",
-<<<<<<< HEAD
-                priceRange: "â‚±50,000 - â‚±80,000",
-=======
                 priceRange: " ₱50,000 -  ₱80,000",
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                 description: "Premium corporate with Tiffany chairs, entrance arch, and welcome board.",
                 
                 catering: ["Rice", "Pasta", "3 Main Courses", "1 Vegetable Dish", "Juice/Water", "Dessert"],
@@ -10786,11 +10363,7 @@ function generateGuestSelection(packageType, rates) {
                    class="w-5 h-5 text-[#DC2626] focus:ring-[#DC2626] rounded cursor-pointer">
             <div class="flex-1">
                 <div class="font-semibold text-gray-800">${rate.pax} Guests</div>
-<<<<<<< HEAD
-                <div class="text-sm text-[#DC2626] font-bold">â‚±${rate.price.toLocaleString()}</div>
-=======
                 <div class="text-sm text-[#DC2626] font-bold"> ₱${rate.price.toLocaleString()}</div>
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
             </div>
         `;
         
@@ -10837,11 +10410,7 @@ function handleGuestSelection(selectedCheckbox) {
         if (priceDisplay && paxText && priceText) {
             priceDisplay.classList.remove('hidden');
             paxText.textContent = `${pax} Guests`;
-<<<<<<< HEAD
-            priceText.textContent = `â‚±${parseInt(price).toLocaleString()}`;
-=======
             priceText.textContent = ` ₱${parseInt(price).toLocaleString()}`;
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
         }
         
         // Enable book button
@@ -13238,11 +12807,7 @@ if (nextStep2) {
                     if (totalBookingsEl) totalBookingsEl.textContent = totalBookings;
                     if (upcomingEventsEl) upcomingEventsEl.textContent = upcomingEvents;
                     if (totalSpentEl) {
-<<<<<<< HEAD
-                        totalSpentEl.textContent = 'â‚±' + totalSpent.toLocaleString('en-PH', {
-=======
                         totalSpentEl.textContent = ' ₱' + totalSpent.toLocaleString('en-PH', {
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                             minimumFractionDigits: 2,
                             maximumFractionDigits: 2
                         });
@@ -13261,11 +12826,7 @@ if (nextStep2) {
                     
                     if (totalBookingsEl) totalBookingsEl.textContent = '0';
                     if (upcomingEventsEl) upcomingEventsEl.textContent = '0';
-<<<<<<< HEAD
-                    if (totalSpentEl) totalSpentEl.textContent = 'â‚±0.00';
-=======
                     if (totalSpentEl) totalSpentEl.textContent = ' ₱0.00';
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
                 });
         }
 
@@ -14215,11 +13776,6 @@ if (profileMenuBtn && profileDropdown) {
 }
 
 console.log('âœ… Dark mode functionality loaded');
-<<<<<<< HEAD
-</script>
-</body>
-</html>
-=======
 
 // ========================================
 // ⭐ RATING & FEEDBACK FUNCTIONALITY
@@ -14433,4 +13989,3 @@ console.log('⭐ Rating & feedback functionality loaded');
 </script>
 </body>
 </html>
->>>>>>> 7736cfa5f6308ce124ef3ff71fe71072d8b57f51
